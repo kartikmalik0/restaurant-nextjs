@@ -7,6 +7,7 @@ import React, { useEffect } from "react";
 
 const CartPage = () => {
   const { products, totalItems, totalPrice, removeFromCart } = useCartStore();
+  console.log(totalPrice)
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -49,7 +50,7 @@ const CartPage = () => {
             )}
             <div className="">
               <h1 className="uppercase text-xl font-bold">
-                {item.title} x{item.quantity}
+                {item.title} x {item.quantity}
               </h1>
               <span>{item.optionTitle}</span>
             </div>
@@ -94,3 +95,4 @@ const CartPage = () => {
 };
 
 export default CartPage;
+
