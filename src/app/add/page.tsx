@@ -45,19 +45,16 @@ const AddPage = () => {
     router.push("/");
   }
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    // console.log(e)
-    setInputs((prev) => {
-      return { ...prev, [e.target.name]: e.target.value };
-    });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setInputs((prev) => ({ ...prev, [name]: name === "price" ? parseFloat(value) : value }));
   };
+  
   const changeOption = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setOption((prev) => {
-      return { ...prev, [e.target.name]: e.target.value };
-    });
+    const { name, value } = e.target;
+    setOption((prev) => ({ ...prev, [name]: name === "additionalPrice" ? parseFloat(value) : value }));
   };
+  
 
   const handleChangeImg = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
@@ -66,6 +63,9 @@ const AddPage = () => {
     setFile(item);
   };
 
+  const handleOptions = ()=>{
+     setOptions((prev) => [...prev, option])
+  }
   const upload = async () => {
     const data = new FormData();
     data.append("file", file!);
@@ -94,6 +94,8 @@ const AddPage = () => {
   
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    console.log("handle submit runned")
+
     e.preventDefault();
 
     try {
@@ -195,7 +197,8 @@ const AddPage = () => {
             />
             <button
               className="bg-gray-500 p-2 text-white"
-              onClick={() => setOptions((prev) => [...prev, option])}
+              onClick={handleOptions}
+              type="button"
             >
               Add Option
             </button>
