@@ -1,5 +1,6 @@
 "use client";
 
+import PageLoader from "@/components/PageLoader";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -38,7 +39,7 @@ const AddPage = () => {
   const router = useRouter();
 
   if (status === "loading") {
-    return <p>Loading...</p>;
+    return <PageLoader/>
   }
 
   if (status === "unauthenticated" || !session?.user.isAdmin) {
@@ -118,9 +119,9 @@ const AddPage = () => {
   };
 
   return (
-    <div className="p-4 lg:px-20 xl:px-40 h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] flex items-center justify-center text-red-500 mt-20">
+    <div className="p-4 lg:px-20 xl:px-40 flex items-center justify-center text-red-500 ">
       <form onSubmit={handleSubmit} className="flex flex-wrap gap-6">
-        <h1 className="text-4xl mb-2 text-gray-300 font-bold">
+        <h1 className="text-4xl mb-2 text-red-500 font-bold">
           Add New Product
         </h1>
         <div className="w-full flex flex-col gap-2 ">
@@ -135,7 +136,7 @@ const AddPage = () => {
             type="file"
             onChange={handleChangeImg}
             id="file"
-            // className="hidden"
+            className="hidden"
           />
         </div>
         <div className="w-full flex flex-col gap-2 ">

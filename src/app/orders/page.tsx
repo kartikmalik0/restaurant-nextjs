@@ -1,5 +1,6 @@
 "use client";
 
+import PageLoader from "@/components/PageLoader";
 import { OrderType } from "@/types/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
@@ -50,7 +51,7 @@ const queryClient = useQueryClient()
     toast.success("The order status has been changed!")
 
   };
-  if (isPending || status === "loading") return 'Loading...'
+  if (isPending || status === "loading") return <PageLoader/>
   return (
     <div className="p-4 lg:px-20 xl:px-40">
       <table className="w-full border-separate border-spacing-3">
@@ -82,7 +83,7 @@ const queryClient = useQueryClient()
                       className="p-2 ring-1 ring-red-100 rounded-md"
                     />
                     <button className="bg-red-400 p-2 rounded-full">
-                      <Image src={"/edit.png"} alt="" width={20} height={20} />
+                      <Image src={"/edit.png"} alt="" width={30} height={30} />
                     </button>
                   </form>
                 </td>
