@@ -1,12 +1,20 @@
 "use client";
+import PaymentDetailModal from "@/components/PaymentDetailModal";
+import { getAuthSession } from "@/utils/auth";
 import { useCartStore } from "@/utils/store";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
-const CartPage = () => {
+const CartPage =  () => {
+
   const { products, totalItems, totalPrice, removeFromCart } = useCartStore();
+  const [name, setName] = useState("")
+  const [address, setAddress] = useState("");
+  const [pincode, setPincode] = useState("")
+  const [phoneNumber, setPhoneNumber] = useState("")
   console.log(totalPrice)
   const { data: session } = useSession();
   const router = useRouter();
@@ -30,13 +38,117 @@ const CartPage = () => {
             userEmail: session.user.email,
           }),
         });
-        const data =await res.json()
-        router.push(`/pay/${data.id}`)
+        const data = await res.json();
+        console.log("Checkout Response:", data); // Log the response for debugging
+        if (res.ok) {
+          router.push(`/pay/${data.id}`);
+        } else {
+          console.error("Failed to create order:", data);
+          // Handle error, show error message, etc.
+        }
       } catch (err) {
-        console.log(err);
+        console.error("Checkout Error:", err);
+        // Handle fetch error, show error message, etc.
       }
     }
   };
+  
+  const buyNow = async () => {
+    if (name === "" || address == "" || pincode == "" || phoneNumber == "") {
+      return toast.error("All fields are required", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      })
+    }
+
+    const addressInfo = {
+      name,
+      address,
+      pincode,
+      phoneNumber,
+      date: new Date().toLocaleString(
+        "en-US",
+        {
+          month: "short",
+          day: "2-digit",
+          year: "numeric",
+        }
+      )
+    }
+
+    var options = {
+      key: "rzp_test_izSt8Am4W62A1o",
+      key_secret: "rzp_test_izSt8Am4W62A1o",
+      amount: totalPrice * 100,
+      currency:"INR",
+      order_receipt: 'order_rcptid'+ name,
+      name:"Massimo",
+      description:"for testing purpose",
+      handler: function (response:any){
+        console.log(response)
+        toast.success('Payment Successful')
+
+        const paymentId = response.razorpay_payment_id
+
+        const orderInfo = [{
+          // userCart: buySingleItem ? [singleCartItem] : userCart,
+          addressInfo,
+          date: new Date().toLocaleString("en-US", {
+            month: "short",
+            day: "2-digit",
+            year: "numeric",
+          }),
+          email: session?.user?.email || "",
+          userid: session?.user?.name || "" ,
+          paymentId,
+        }];
+
+        const handleCheckout = async () => {
+          if (!session) {
+            router.push("/login");
+          } else {
+            try {
+              console.log()
+              const res = await fetch("http://localhost:3000/api/orders", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                      price: totalPrice,
+                      products,
+                      status: "Not Paid!",
+                      userEmail: session.user.email,
+                      // orderInfo,
+                  }),
+              });
+              const data = await res.json();
+              console.log("Checkout Response:", data); // Log the response for debugging
+              if (res.ok) {
+                  router.push(`/success`); // Redirect to success page
+              } else {
+                  console.error("Failed to create order:", data);
+                  // Handle error, show error message, etc.
+              }
+          } catch (err) {
+              console.error("Checkout Error:", err);
+              // Handle fetch error, show error message, etc.
+          }
+          
+          }
+        };
+        handleCheckout()
+      }
+    }
+    var pay = new window.Razorpay(options);
+      pay.open();
+      console.log(pay)
+
+  }
 
   return (
     <div className="h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] flex flex-col text-red-500 lg:flex-row">
@@ -83,12 +195,19 @@ const CartPage = () => {
           <span className="">TOTAL(INCL. VAT)</span>
           <span className="font-bold">${totalPrice}</span>
         </div>
-        <button
-          className="bg-red-500 text-white p-3 rounded-md w-1/2 self-end"
-          onClick={handleCheckout}
-        >
-          CHECKOUT
-        </button>
+        <PaymentDetailModal
+              name={name}
+              address={address}
+              pincode={pincode}
+              phoneNumber={phoneNumber}
+              setName={setName}
+              setAddress={setAddress}
+              setPincode={setPincode}
+              setPhoneNumber={setPhoneNumber}
+              buyNow={buyNow}
+              // buySingleItem={buySingleItem}
+              // setBuySingleItem={setBuySingleItem}
+            />  
       </div>
     </div>
   );
