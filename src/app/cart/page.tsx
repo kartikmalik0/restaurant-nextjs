@@ -128,7 +128,7 @@ const CartPage =  () => {
               });
               const data = await res.json();
               console.log("Checkout Response:", data); // Log the response for debugging
-              if (res.ok) {
+              if (res.ok) {     
                   router.push(`/success`); // Redirect to success page
               } else {
                   console.error("Failed to create order:", data);
