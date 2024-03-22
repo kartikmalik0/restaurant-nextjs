@@ -15,7 +15,6 @@ const CartPage =  () => {
   const [address, setAddress] = useState("");
   const [pincode, setPincode] = useState("")
   const [phoneNumber, setPhoneNumber] = useState("")
-  console.log(totalPrice)
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -23,35 +22,35 @@ const CartPage =  () => {
     useCartStore.persist.rehydrate();
   }, []);
 
-  const handleCheckout = async () => {
-    if (!session) {
-      router.push("/login");
-    } else {
-      try {
-        const res = await fetch("http://localhost:3000/api/orders", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            price: totalPrice,
-            products,
-            status: "Not Paid!",
-            userEmail: session.user.email,
-          }),
-        });
-        const data = await res.json();
-        console.log("Checkout Response:", data); // Log the response for debugging
-        if (res.ok) {
-          router.push(`/pay/${data.id}`);
-        } else {
-          console.error("Failed to create order:", data);
-          // Handle error, show error message, etc.
-        }
-      } catch (err) {
-        console.error("Checkout Error:", err);
-        // Handle fetch error, show error message, etc.
-      }
-    }
-  };
+  // const handleCheckout = async () => {
+  //   if (!session) {
+  //     router.push("/login");
+  //   } else {
+  //     try {
+  //       const res = await fetch("http://localhost:3000/api/orders", {
+  //         method: "POST",
+  //         headers: { "Content-Type": "application/json" },
+  //         body: JSON.stringify({
+  //           price: totalPrice,
+  //           products,
+  //           status: "Not Paid!",
+  //           userEmail: session.user.email,
+  //         }),
+  //       });
+  //       const data = await res.json();
+  //       console.log("Checkout Response:", data); // Log the response for debugging
+  //       if (res.ok) {
+  //         router.push(`/success/${data.id}`);
+  //       } else {
+  //         console.error("Failed to create order:", data);
+  //         // Handle error, show error message, etc.
+  //       }
+  //     } catch (err) {
+  //       console.error("Checkout Error:", err);
+  //       // Handle fetch error, show error message, etc.
+  //     }
+  //   }
+  // };
   
   const buyNow = async () => {
     if (name === "" || address == "" || pincode == "" || phoneNumber == "") {
@@ -91,7 +90,7 @@ const CartPage =  () => {
       name:"Massimo",
       description:"for testing purpose",
       handler: function (response:any){
-        console.log(response)
+        console.log(response,"response")
         toast.success('Payment Successful')
 
         const paymentId = response.razorpay_payment_id
@@ -129,7 +128,7 @@ const CartPage =  () => {
               const data = await res.json();
               console.log("Checkout Response:", data); // Log the response for debugging
               if (res.ok) {     
-                  router.push(`/success`); // Redirect to success page
+                  router.push(`/success/${data.id}`); // Redirect to success page
               } else {
                   console.error("Failed to create order:", data);
                   // Handle error, show error message, etc.
@@ -144,7 +143,7 @@ const CartPage =  () => {
         handleCheckout()
       }
     }
-    var pay = new window.Razorpay(options);
+    var pay = new (window as any).Razorpay(options);
       pay.open();
       console.log(pay)
 

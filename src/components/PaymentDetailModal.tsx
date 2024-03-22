@@ -2,7 +2,19 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useEffect, useState } from 'react'
 
-const  PaymentDetailModal = ({ name, address, pincode, phoneNumber, setName, setAddress, setPincode, setPhoneNumber,buyNow})=> {
+interface PaymentDetailModalProps {
+    name: string;
+    address: string;
+    pincode: string;
+    phoneNumber: string;
+    setName: (name: string) => void;
+    setAddress: (address: string) => void;
+    setPincode: (pincode: string) => void;
+    setPhoneNumber: (phoneNumber: string) => void;
+    buyNow: () => void;
+}
+
+const PaymentDetailModal: React.FC<PaymentDetailModalProps> = ({ name, address, pincode, phoneNumber, setName, setAddress, setPincode, setPhoneNumber, buyNow }) => {
     let [isOpen, setIsOpen] = useState(false)
 
 

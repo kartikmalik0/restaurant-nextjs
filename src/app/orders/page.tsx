@@ -67,11 +67,11 @@ const queryClient = useQueryClient()
         <tbody>
           {
             data.map((item:OrderType,index:any)=>(
-            <tr className={`text-sm md:text-base ${item.status !== "delivered" && "bg-red-50"}`}  key={index}>
-            <td className="hidden md:block py-6 px-1">{item.id}</td>
-            <td className="py-6 px-1">{item.cretedAt.toString().slice(0,10)}</td>
-            <td className="py-6 px-1">{item.price}</td>
-            <td className="hidden md:block py-6 px-1">{item.products[0].title}</td>
+            <tr className={`text-sm md:text-base ${item?.status !== "delivered" && "bg-red-50"}`}  key={index}>
+            <td className="hidden md:block py-6 px-1">{item?.id}</td>
+            <td className="py-6 px-1">{item.cretedAt?.toString().slice(0,10)}</td>
+            <td className="py-6 px-1">{item?.price}</td>
+            <td className="hidden md:block py-6 px-1">{item?.products[0].title}</td>
             {session?.user.isAdmin ? (
                 <td>
                   <form
