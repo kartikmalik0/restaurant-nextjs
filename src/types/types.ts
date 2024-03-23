@@ -39,6 +39,7 @@ export type MenuType = {
     products: CartItemType[];
     totalItems: number;
     totalPrice: number;
+    loading:boolean
   };
   
   export type ActionTypes = {

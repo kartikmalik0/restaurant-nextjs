@@ -12,9 +12,9 @@ import { toast } from "react-toastify";
 
 const OrdersPage = () => {
 
-  const {data:session,status} = useSession()
+  const { data: session, status } = useSession()
   const router = useRouter()
-  if(status === "unauthenticated"){
+  if (status === "unauthenticated") {
     router.push("/")
   }
   const { isPending, error, data } = useQuery({
@@ -25,11 +25,11 @@ const OrdersPage = () => {
       ),
   })
 
-const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
   const mutation = useMutation({
     mutationFn: ({ id, status }: { id: string; status: string }) => {
       return fetch(`http://localhost:3000/api/orders/${id}`, {
-        method:"PUT",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
@@ -51,7 +51,7 @@ const queryClient = useQueryClient()
     toast.success("The order status has been changed!")
 
   };
-  if (isPending || status === "loading") return <PageLoader/>
+  if (isPending || status === "loading") return <PageLoader />
   return (
     <div className="p-4 lg:px-20 xl:px-40">
       <table className="w-full border-separate border-spacing-3">
@@ -66,30 +66,30 @@ const queryClient = useQueryClient()
         </thead>
         <tbody>
           {
-            data.map((item:OrderType,index:any)=>(
-            <tr className={`text-sm md:text-base ${item?.status !== "delivered" && "bg-red-50"}`}  key={index}>
-            <td className="hidden md:block py-6 px-1">{item?.id}</td>
-            <td className="py-6 px-1">{item.cretedAt?.toString().slice(0,10)}</td>
-            <td className="py-6 px-1">{item?.price}</td>
-            <td className="hidden md:block py-6 px-1">{item?.products[0].title}</td>
-            {session?.user.isAdmin ? (
-                <td>
-                  <form
-                    className="flex items-center justify-center gap-4"
-                    onSubmit={(e) => handleUpdate(e, item.id)}
-                  >
-                    <input
-                      placeholder={item.status}
-                      className="p-2 ring-1 ring-red-100 rounded-md"
-                    />
-                    <button className="bg-red-400 p-2 rounded-full">
-                      <Image src={"/edit.png"} alt="" width={30} height={30} />
-                    </button>
-                  </form>
-                </td>
-              ) : (
-                <td className="py-6 px-1">{item.status}</td>
-              )}          </tr>
+            data.map((item: OrderType, index: any) => (
+              <tr className={`text-sm md:text-base ${item?.status !== "delivered" && "bg-red-50"}`} key={index}>
+                <td className="hidden md:block py-6 px-1">{item?.id}</td>
+                <td className="py-6 px-1">{item.cretedAt?.toString().slice(0, 10)}</td>
+                <td className="py-6 px-1">{item?.price}</td>
+                <td className="hidden md:block py-6 px-1">{item?.products[0].title}</td>
+                {session?.user.isAdmin ? (
+                  <td>
+                    <form
+                      className="flex items-center justify-center gap-4"
+                      onSubmit={(e) => handleUpdate(e, item.id)}
+                    >
+                      <input
+                        placeholder={item.status}
+                        className="p-2 ring-1 ring-red-100 rounded-md"
+                      />
+                      <button className="bg-red-400 p-2 rounded-full">
+                        <Image src={"/edit.png"} alt="" width={30} height={30} />
+                      </button>
+                    </form>
+                  </td>
+                ) : (
+                  <td className="py-6 px-1">{item.status}</td>
+                )}          </tr>
             ))
           }
         </tbody>

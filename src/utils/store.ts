@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   products: [],
   totalItems: 0,
   totalPrice: 0,
+  loading:true,
 };
 
 export const useCartStore = create(
@@ -14,6 +15,7 @@ export const useCartStore = create(
       products: INITIAL_STATE.products,
       totalItems: INITIAL_STATE.totalItems,
       totalPrice: INITIAL_STATE.totalPrice,
+      loading:INITIAL_STATE.loading,
       addToCart(item) {
         const products = get().products;
         const productInState = products.find(
@@ -34,12 +36,14 @@ export const useCartStore = create(
             products: updatedProducts,
             totalItems: state.totalItems + item.quantity,
             totalPrice: state.totalPrice + item.price,
+            loading:false,
           }));
         } else {
           set((state) => ({
             products: [...state.products, item],
             totalItems: state.totalItems + item.quantity,
             totalPrice: state.totalPrice + item.price,
+            loading:false
           }));
         }
       },
@@ -48,6 +52,7 @@ export const useCartStore = create(
           products: state.products.filter((product) => product.id !== item.id),
           totalItems: state.totalItems - item.quantity,
           totalPrice: state.totalPrice - item.price,
+          loading:false
         }));
       },
     }),
