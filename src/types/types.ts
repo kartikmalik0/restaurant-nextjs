@@ -22,7 +22,7 @@ export type MenuType = {
     price: number;
     products: CartItemType[];
     status: string;
-    createdAt: Date;
+    cretedAt: Date;
     intent_id?: String;
   };
   
@@ -39,6 +39,7 @@ export type MenuType = {
     products: CartItemType[];
     totalItems: number;
     totalPrice: number;
+    loading:boolean
   };
   
   export type ActionTypes = {
