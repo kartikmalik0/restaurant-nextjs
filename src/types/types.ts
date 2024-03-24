@@ -24,6 +24,7 @@ export type MenuType = {
     status: string;
     cretedAt: Date;
     intent_id?: String;
+    orderInfo: any
   };
   
   export type CartItemType = {

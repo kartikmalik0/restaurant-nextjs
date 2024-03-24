@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const Price = ({ product }: { product: ProductType }) => {
-  const [total, setTotal] = useState(product?.price);
+  const [total, setTotal] = useState(+product?.price);
   const [quantity, setQuantity] = useState(1);
   const [selected, setSelected] = useState(0);
 
@@ -19,11 +19,11 @@ const Price = ({ product }: { product: ProductType }) => {
   useEffect(() => {
     if (product?.options?.length) {
       setTotal(
-        quantity  * product.price + product.options[selected].additionalPrice
+        quantity  * +product?.price + product?.options[selected]?.additionalPrice
       );
     }
   }, [quantity, selected, product]);
-
+console.log(total)
   const handleCart = ()=>{
     addToCart({
       id: product.id,

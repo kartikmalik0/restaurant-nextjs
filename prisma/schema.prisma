@@ -40,6 +40,7 @@ model Order {
   intent_id String?  @unique
   user      User    @relation(fields: [userEmail], references: [email])
   userEmail String
+  orderInfo Json
 }
  
 model Account {

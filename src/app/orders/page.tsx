@@ -52,15 +52,19 @@ const OrdersPage = () => {
 
   };
   if (isPending || status === "loading") return <PageLoader />
+  console.log(data)
   return (
-    <div className="p-4 lg:px-20 xl:px-40">
+    <div className="p-2 lg:px-8 xl:px-8">
       <table className="w-full border-separate border-spacing-3">
         <thead>
           <tr className="text-left">
-            <th className="hidden md:block">Order ID</th>
+            <th className="hidden md:block">Payment ID</th>
+            <th>Name</th>
+            <th>Mobile No.</th>
             <th>Date</th>
             <th>Price</th>
             <th className="hidden md:block">Products</th>
+            <th>Pincode</th>
             <th>Status</th>
           </tr>
         </thead>
@@ -68,10 +72,13 @@ const OrdersPage = () => {
           {
             data.map((item: OrderType, index: any) => (
               <tr className={`text-sm md:text-base ${item?.status !== "delivered" && "bg-red-50"}`} key={index}>
-                <td className="hidden md:block py-6 px-1">{item?.id}</td>
-                <td className="py-6 px-1">{item.cretedAt?.toString().slice(0, 10)}</td>
+                <td className="hidden md:block py-6 px-1">{item?.orderInfo[0]?.paymentId}</td>
+                <td className="py-6 px-1">{item?.orderInfo[0]?.addressInfo?.name}</td>
+                <td className="py-6 px-1">{item?.orderInfo[0]?.addressInfo?.phoneNumber}</td>
+                <td className="py-6 px-1">{item?.cretedAt?.toString().slice(0, 10)}</td>
                 <td className="py-6 px-1">{item?.price}</td>
-                <td className="hidden md:block py-6 px-1">{item?.products[0].title}</td>
+                <td className="hidden md:block py-6 px-1">{`${item?.products[0]?.title} (${item?.products[0]?.optionTitle}) * ${item?.products[0]?.quantity}`}</td>
+                <td className="py-6 px-1">{item?.orderInfo[0]?.addressInfo?.pincode}</td>
                 {session?.user.isAdmin ? (
                   <td>
                     <form
