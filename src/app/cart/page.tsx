@@ -99,7 +99,7 @@ const CartPage = () => {
                   products,
                   status: "Not Paid!",
                   userEmail: session.user.email,
-                  // orderInfo,
+                  orderInfo,
                 }),
               });
               const data = await res.json();
