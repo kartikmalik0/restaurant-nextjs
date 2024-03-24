@@ -14,13 +14,15 @@ const OrdersPage = () => {
 
   const { data: session, status } = useSession()
   const router = useRouter()
+  const base_url = process.env.NEXT_PUBLIC_BASE_URL!;
+  console.log(base_url)
   if (status === "unauthenticated") {
     router.push("/")
   }
   const { isPending, error, data } = useQuery({
     queryKey: ['orders'],
     queryFn: () =>
-      fetch('http://localhost:3000/api/orders').then((res) =>
+      fetch(`${base_url}/api/orders`).then((res) =>
         res.json(),
       ),
   })
@@ -28,7 +30,7 @@ const OrdersPage = () => {
   const queryClient = useQueryClient()
   const mutation = useMutation({
     mutationFn: ({ id, status }: { id: string; status: string }) => {
-      return fetch(`http://localhost:3000/api/orders/${id}`, {
+      return fetch(`${base_url}/api/orders/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

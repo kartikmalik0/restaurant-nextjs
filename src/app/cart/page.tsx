@@ -11,7 +11,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const CartPage = () => {
-
+  const base_url = process.env.NEXT_PUBLIC_BASE_URL!;
   const { products, totalItems, totalPrice, removeFromCart, loading } = useCartStore();
   useEffect(() => {
     // Code to run whenever loading state changes
@@ -91,7 +91,7 @@ const CartPage = () => {
           } else {
             try {
               console.log()
-              const res = await fetch("http://localhost:3000/api/orders", {
+              const res = await fetch(`${base_url}/api/orders`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -105,7 +105,7 @@ const CartPage = () => {
               const data = await res.json();
               console.log("Checkout Response:", data); // Log the response for debugging
               if (res.ok) {
-                router.push(`/success/${data.id}`); // Redirect to success page
+                router.push(`${base_url}/success/${data.id}`); // Redirect to success page
               } else {
                 console.error("Failed to create order:", data);
                 // Handle error, show error message, etc.

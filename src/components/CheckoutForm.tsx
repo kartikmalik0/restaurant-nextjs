@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import AddressForm from "./AddressFrom";
 
 const CheckoutForm = () => {
+  const base_url = process.env.NEXT_PUBLIC_BASE_URL!;
   const stripe = useStripe();
   const elements = useElements();
 
@@ -63,7 +64,7 @@ const CheckoutForm = () => {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:3000/success",
+        return_url: `${base_url}/success`,
       },
     });
 
