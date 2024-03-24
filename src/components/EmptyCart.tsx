@@ -4,7 +4,7 @@ import React from "react";
 const EmptyCart = () => {
     return (
         <div className="flex items-center justify-center w-full flex-col">
-            <Image src="/emptyCart.webp" alt="emptyCart" />
+            <Image src="/emptyCart.webp" alt="emptyCart" width={'300'} height={'300'}/>
             <h1 className=" text-3xl font-bold text-black">
                 Your Cart is <span className=" text-red-500">Empty!</span>
             </h1>
