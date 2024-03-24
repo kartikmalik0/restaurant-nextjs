@@ -22,6 +22,7 @@ type Option = {
 };
 
 const AddPage = () => {
+  const base_url = process.env.NEXT_PUBLIC_BASE_URL!;
   const { data: session, status } = useSession();
   const [inputs, setInputs] = useState<Inputs>({
     title: "",
@@ -118,7 +119,7 @@ const AddPage = () => {
 
     try {
       const url = await upload();
-      const res = await fetch("http://localhost:3000/api/products", {
+      const res = await fetch(`${base_url}/api/products`, {
         method: "POST",
         body: JSON.stringify({
           img: url,

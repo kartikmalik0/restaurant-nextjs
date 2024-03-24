@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const SuccessPage = ({ params }: { params: { orderId: string } }) => {
- 
+  const base_url = process.env.NEXT_PUBLIC_BASE_URL!;
   const router = useRouter()
   // const {orderId} = params
   const [isLoading, setIsLoading] = useState(true); // Track loading state
@@ -13,7 +13,7 @@ const SuccessPage = ({ params }: { params: { orderId: string } }) => {
     const makeRequest = async () => {
       console.log(params?.orderId,"orderid")
       try {
-        await fetch(`http://localhost:3000/api/confirm/${params?.orderId}`, {
+        await fetch(`${base_url}/api/confirm/${params?.orderId}`, {
           method: "PUT",
         });
         setTimeout(() => {

@@ -3,7 +3,8 @@ import Link from "next/link";
 import React from "react";
 
 const getData = async() => {
-  const res = await fetch("http://localhost:3000/api/categories" ,{
+  const base_url = process.env.NEXT_PUBLIC_BASE_URL!;
+  const res = await fetch(`${base_url}/api/categories` ,{
     cache:"no-store"
   })
   
