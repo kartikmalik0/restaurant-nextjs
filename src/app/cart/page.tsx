@@ -85,7 +85,6 @@ const CartPage = () => {
           userid: session?.user?.name || "",
           paymentId,
         }];
-
         const handleCheckout = async () => {
           if (!session) {
             router.push("/login");
