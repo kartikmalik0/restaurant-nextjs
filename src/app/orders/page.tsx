@@ -72,7 +72,7 @@ const OrdersPage = () => {
         </thead>
         <tbody>
           {
-            data.map((item: OrderType, index: any) => (
+            data?.map((item: OrderType, index: any) => (
               <tr className={`text-sm md:text-base ${item?.status !== "delivered" && "bg-red-50"}`} key={index}>
                 <td className="hidden md:block py-6 px-1">{item?.orderInfo[0]?.paymentId}</td>
                 <td className="py-6 px-1">{item?.orderInfo[0]?.addressInfo?.name}</td>

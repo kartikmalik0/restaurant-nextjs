@@ -65,7 +65,7 @@ const CartPage = () => {
       amount: totalPrice * 100,
       currency: "INR",
       order_receipt: 'order_rcptid' + name,
-      name: "Massimo",
+      name: "MS RESTAURANT",
       description: "for testing purpose",
       handler: function (response: any) {
         console.log(response, "response")

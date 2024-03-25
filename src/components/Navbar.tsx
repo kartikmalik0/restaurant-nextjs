@@ -8,17 +8,21 @@ import UserLinks from "./UserLinks";
 const Navbar = () => {
   const user = false;
   return (
-    <div className="h-12 text-red-500 p-4 flex items-center justify-between border-b-2 border-b-red-500 uppercase md:h-24 lg:px-20 xl:px-40">
+    <div className=" h-20 text-red-500 p-4 flex items-center justify-between border-b-2 border-b-red-500 uppercase md:h-24 lg:px-20 xl:px-40">
+
+      {/* LOGO */}
+      <div className="text-xl md:font-bold flex-1 md:text-center">
+        <Link href="/">
+          <Image src={"/logo-no-background.png"} alt="" height={"100"} width={"100"} className=" rounded-full"/>
+        </Link>
+      </div>
       {/* LEFT LINKS */}
       <div className="hidden md:flex gap-4 flex-1">
         <Link href="/">Homepage</Link>
         <Link href="/menu">Menu</Link>
         <Link href="/">Contact</Link>
       </div>
-      {/* LOGO */}
-      <div className="text-xl md:font-bold flex-1 md:text-center">
-        <Link href="/">Massimo</Link>
-      </div>
+      
       {/* MOBILE MENU */}
       <div className="md:hidden">
         <Menu />

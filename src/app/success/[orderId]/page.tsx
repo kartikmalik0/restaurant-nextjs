@@ -25,7 +25,7 @@ const SuccessPage = ({ params }: { params: { orderId: string } }) => {
     };
 
     makeRequest();
-  }, [params?.orderId, router]);
+  }, [params?.orderId, router,base_url]);
 
    
  

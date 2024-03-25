@@ -26,6 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
       <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
+      <link rel="icon" href="/logo-no-background.ico" sizes="any" />
       </head>
       <body className={inter.className}>
         <AuthProvider>
