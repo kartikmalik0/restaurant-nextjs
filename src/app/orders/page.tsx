@@ -15,7 +15,6 @@ const OrdersPage = () => {
   const { data: session, status } = useSession()
   const router = useRouter()
   const base_url = process.env.NEXT_PUBLIC_BASE_URL!;
-  console.log(base_url)
   if (status === "unauthenticated") {
     router.push("/")
   }

@@ -12,7 +12,6 @@ const getData = async() => {
     throw new Error("Failed")
   }
 
-// console.log(res.json())
 return res.json()
 }
 

@@ -16,7 +16,6 @@ const CartPage = () => {
   const { products, totalItems, totalPrice, removeFromCart, loading } = useCartStore();
   useEffect(() => {
     // Code to run whenever loading state changes
-    console.log('Loading state changed:', loading);
   }, [loading]);
   const [name, setName] = useState("")
   const [address, setAddress] = useState("");
@@ -68,7 +67,6 @@ const CartPage = () => {
       name: "MS RESTAURANT",
       description: "for testing purpose",
       handler: function (response: any) {
-        console.log(response, "response")
         toast.success('Payment Successful')
 
         const paymentId = response.razorpay_payment_id
@@ -90,7 +88,6 @@ const CartPage = () => {
             router.push("/login");
           } else {
             try {
-              console.log()
               const res = await fetch(`${base_url}/api/orders`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -103,7 +100,6 @@ const CartPage = () => {
                 }),
               });
               const data = await res.json();
-              console.log("Checkout Response:", data); // Log the response for debugging
               if (res.ok) {
                 router.push(`${base_url}/success/${data.id}`); // Redirect to success page
               } else {
