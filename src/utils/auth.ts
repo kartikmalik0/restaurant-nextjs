@@ -46,6 +46,7 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
   },
+  debug:true,
 };
 
 export const getAuthSession = () => getServerSession(authOptions);
