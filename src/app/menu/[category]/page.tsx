@@ -6,7 +6,7 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 const getData = async (category:string)=>{
   const base_url = process.env.NEXT_PUBLIC_BASE_URL!;
-  const res = await fetch(`${base_url}api/products?cat=${category}`,{
+  const res = await fetch(`${base_url}/api/products?cat=${category}`,{
     cache:"no-store"
   })
 

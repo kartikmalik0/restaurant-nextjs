@@ -6,7 +6,7 @@ import React from "react";
 
 const getData = async (id: string) => {
   const base_url = process.env.NEXT_PUBLIC_BASE_URL!;
-  const res = await fetch(`${base_url}api/products/${id}`, {
+  const res = await fetch(`${base_url}/api/products/${id}`, {
     cache: "no-store",
   });
 
