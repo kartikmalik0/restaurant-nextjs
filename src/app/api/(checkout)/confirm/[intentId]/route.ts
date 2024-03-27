@@ -6,7 +6,6 @@ export const PUT = async (req: NextRequest) => {
 
   // Extract the last ID using a regular expression (more robust)
   const match = url.match(/\/api\/confirm\/([^\/]+)$/);
-console.log(match)
   if (!match) {
     return new NextResponse(JSON.stringify({ message: "Invalid URL format" }), { status: 400 });
   }

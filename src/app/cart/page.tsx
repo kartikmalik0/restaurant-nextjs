@@ -1,4 +1,5 @@
 "use client";
+
 import EmptyCart from "@/components/EmptyCart";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import PaymentDetailModal from "@/components/PaymentDetailModal";
@@ -15,7 +16,6 @@ const CartPage = () => {
   const { products, totalItems, totalPrice, removeFromCart, loading } = useCartStore();
   useEffect(() => {
     // Code to run whenever loading state changes
-    console.log('Loading state changed:', loading);
   }, [loading]);
   const [name, setName] = useState("")
   const [address, setAddress] = useState("");
@@ -64,10 +64,9 @@ const CartPage = () => {
       amount: totalPrice * 100,
       currency: "INR",
       order_receipt: 'order_rcptid' + name,
-      name: "Massimo",
+      name: "MS RESTAURANT",
       description: "for testing purpose",
       handler: function (response: any) {
-        console.log(response, "response")
         toast.success('Payment Successful')
 
         const paymentId = response.razorpay_payment_id
@@ -84,13 +83,11 @@ const CartPage = () => {
           userid: session?.user?.name || "",
           paymentId,
         }];
-
         const handleCheckout = async () => {
           if (!session) {
             router.push("/login");
           } else {
             try {
-              console.log()
               const res = await fetch(`${base_url}/api/orders`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -103,7 +100,6 @@ const CartPage = () => {
                 }),
               });
               const data = await res.json();
-              console.log("Checkout Response:", data); // Log the response for debugging
               if (res.ok) {
                 router.push(`${base_url}/success/${data.id}`); // Redirect to success page
               } else {
@@ -127,16 +123,16 @@ const CartPage = () => {
   }
 
   return (
-    <div className="h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] flex flex-col text-red-500 lg:flex-row">
+    <div className="h-[calc(100vh-6rem)]  md:h-[calc(100vh-9rem)] flex flex-col text-red-500 lg:flex-row">
       {/* PRODUCTS CONTAINER */}
       {/* Cart Products */}
       {loading ?
         (<LoadingSpinner />) :
         products.length > 0 ?
-          (<div className="h-1/2 p-4 flex flex-col justify-center overflow-scroll lg:h-full lg:w-2/3 2xl:w-1/2 lg:px-20 xl:px-40">
+          (<div className=" h-64 px-5 mt-12 overflow-scroll lg:h-full lg:w-2/3 2xl:w-1/2 lg:px-20 xl:px-40">
             {/* SINGLE ITEM */}
             {products.map((item) => (
-              <div className="flex items-center justify-between mb-4" key={item.id}>
+              <div className="flex items-center justify-between mb-4 mt-14" key={item.id}>
                 {item.img && (
                   <Image src={item.img} alt="" width={100} height={100} />
                 )}

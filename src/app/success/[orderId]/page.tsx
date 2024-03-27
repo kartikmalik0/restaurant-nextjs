@@ -11,7 +11,6 @@ const SuccessPage = ({ params }: { params: { orderId: string } }) => {
   const [error, setError] = useState<string | null>(null);
   useEffect(() => {
     const makeRequest = async () => {
-      console.log(params?.orderId,"orderid")
       try {
         await fetch(`${base_url}/api/confirm/${params?.orderId}`, {
           method: "PUT",
@@ -25,7 +24,7 @@ const SuccessPage = ({ params }: { params: { orderId: string } }) => {
     };
 
     makeRequest();
-  }, [params?.orderId, router]);
+  }, [params?.orderId, router,base_url]);
 
    
  

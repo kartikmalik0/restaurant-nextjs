@@ -64,7 +64,6 @@ const AddPage = () => {
 
     // Update isFeatured directly based on checked state
     setInputs((prev) => ({ ...prev, isFeatured: checked }));
-    console.log(inputs)
   };
 
 
@@ -78,7 +77,6 @@ const AddPage = () => {
   const handleChangeImg = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
     const item = (target.files as FileList)[0];
-    // console.log(item)
     setFile(item);
   };
 
@@ -100,12 +98,10 @@ const AddPage = () => {
       );
 
       // Check the response structure based on Cloudinary documentation
-      // console.log(response.data);
 
       // Assuming the URL is available in the response data, adjust accordingly
       return response.data.url;
     } catch (error) {
-      console.error(error);
       // Handle the error as needed
       throw error;
     }
@@ -113,7 +109,6 @@ const AddPage = () => {
 
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    // console.log("handle submit runned")
 
     e.preventDefault();
 

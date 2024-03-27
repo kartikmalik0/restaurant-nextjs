@@ -23,7 +23,6 @@ const Price = ({ product }: { product: ProductType }) => {
       );
     }
   }, [quantity, selected, product]);
-console.log(total)
   const handleCart = ()=>{
     addToCart({
       id: product.id,

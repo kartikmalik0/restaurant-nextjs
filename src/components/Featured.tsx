@@ -1,5 +1,6 @@
 import { ProductType } from "@/types/types";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const getData = async () => {
@@ -25,8 +26,8 @@ const Featured = async () => {
       <div className="w-max flex">
         {/* SINGLE ITEM */}
         {featuredProducts.map((item) => (
+        <Link href={`/product/${item?.id}`}  key={item?.id}>
           <div
-            key={item?.id}
             className="w-screen h-[60vh] flex flex-col items-center justify-around p-4 hover:bg-fuchsia-50 transition-all duration-300 md:w-[50vw] xl:w-[33vw] xl:h-[90vh]"
           >
             {/* IMAGE CONTAINER */}
@@ -45,6 +46,7 @@ const Featured = async () => {
               </button>
             </div>
           </div>
+        </Link>
         ))}
       </div>
     </div>
