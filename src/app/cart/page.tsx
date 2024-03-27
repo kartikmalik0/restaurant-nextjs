@@ -123,16 +123,16 @@ const CartPage = () => {
   }
 
   return (
-    <div className="h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] flex flex-col text-red-500 lg:flex-row">
+    <div className="h-[calc(100vh-6rem)]  md:h-[calc(100vh-9rem)] flex flex-col text-red-500 lg:flex-row">
       {/* PRODUCTS CONTAINER */}
       {/* Cart Products */}
       {loading ?
         (<LoadingSpinner />) :
         products.length > 0 ?
-          (<div className="h-1/2 p-4 flex flex-col justify-center overflow-scroll lg:h-full lg:w-2/3 2xl:w-1/2 lg:px-20 xl:px-40">
+          (<div className=" h-64 px-5 mt-12 overflow-scroll lg:h-full lg:w-2/3 2xl:w-1/2 lg:px-20 xl:px-40">
             {/* SINGLE ITEM */}
             {products.map((item) => (
-              <div className="flex items-center justify-between mb-4" key={item.id}>
+              <div className="flex items-center justify-between mb-4 mt-14" key={item.id}>
                 {item.img && (
                   <Image src={item.img} alt="" width={100} height={100} />
                 )}
