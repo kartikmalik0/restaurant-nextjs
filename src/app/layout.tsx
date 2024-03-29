@@ -16,7 +16,7 @@ import { fonts } from "./fonts";
 export const metadata: Metadata = {
   title: {
     template: "%s | MS RESTURANT & BURGERS",
-    default: "MS RESTURANT & BURGERS"
+    default: "MS RESTURANT & BURGERS",
   }
 };
 

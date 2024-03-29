@@ -41,9 +41,11 @@ export type MenuType = {
     totalItems: number;
     totalPrice: number;
     loading:boolean
+    pincodeForDelivery:any
   };
   
   export type ActionTypes = {
     addToCart:(item:CartItemType)=> void;
     removeFromCart:(item:CartItemType)=> void;
+    setPincodeForDelivery:(item:any)=>void;
   }

@@ -132,7 +132,7 @@ const AddPage = () => {
   };
 
   return (
-    <div className="p-4 lg:px-20 xl:px-40 flex items-center justify-center text-red-500 ">
+    <div className="p-4 mt-24 lg:px-20 xl:px-40 flex items-center justify-center text-red-500 ">
       <form onSubmit={handleSubmit} className="flex flex-wrap gap-6">
         <h1 className="text-4xl mb-2 text-red-500 font-bold">
           Add New Product

@@ -13,18 +13,18 @@ import { toast } from "react-toastify";
 
 const CartPage = () => {
   const base_url = process.env.NEXT_PUBLIC_BASE_URL!;
-  const { products, totalItems, totalPrice, removeFromCart, loading } = useCartStore();
-  useEffect(() => {
-    // Code to run whenever loading state changes
-  }, [loading]);
+  const [addressError , setAddressError]  = useState(false)
+  const [addressForDeliveryCharges,setAddressForDeliveryCharges] = useState(false)
   const [name, setName] = useState("")
   const [address, setAddress] = useState("");
-  const [pincode, setPincode] = useState("")
+  const [pincode, setPincode] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("")
   const { data: session } = useSession();
   const router = useRouter();
+  const { products, totalItems, totalPrice, removeFromCart, loading } = useCartStore();
 
   useEffect(() => {
+   
     useCartStore.persist.rehydrate();
   }, []);
 
@@ -57,11 +57,10 @@ const CartPage = () => {
         }
       )
     }
-
     var options = {
-      key: "rzp_test_izSt8Am4W62A1o",
-      key_secret: "rzp_test_izSt8Am4W62A1o",
-      amount: totalPrice * 100,
+      key: process.env.NEXT_PUBLIC_RZP_KEY,
+      key_secret: process.env.NEXT_PUBLIC_RZP_SECRET ,
+      amount: (totalPrice + (addressForDeliveryCharges ? 20 : 50)) *100,
       currency: "INR",
       order_receipt: 'order_rcptid' + name,
       name: "MS RESTAURANT",
@@ -118,8 +117,6 @@ const CartPage = () => {
     }
     var pay = new (window as any).Razorpay(options);
     pay.open();
-    console.log(pay)
-
   }
 
   return (
@@ -142,7 +139,7 @@ const CartPage = () => {
                   </h1>
                   <span>{item.optionTitle}</span>
                 </div>
-                <h2 className="font-bold">${item.price}</h2>
+                <h2 className="font-bold">₹{item.price}</h2>
                 <span
                   className="cursor-pointer"
                   onClick={() => removeFromCart(item)}
@@ -160,20 +157,20 @@ const CartPage = () => {
           <div className="h-1/2 p-4 bg-fuchsia-50 flex flex-col gap-4 justify-center lg:h-full lg:w-1/3 2xl:w-1/2 lg:px-20 xl:px-40 2xl:text-xl 2xl:gap-6">
             <div className="flex justify-between">
               <span className="">Subtotal ({totalItems} items)</span>
-              <span className="">${totalPrice}</span>
+              <span className="">₹{totalPrice}</span>
             </div>
             <div className="flex justify-between">
-              <span className="">Service Cost</span>
-              <span className="">$0.00</span>
+              <span className="">Delivery For Nimriwali</span>
+              <span className="text-green-500">₹20</span>
             </div>
             <div className="flex justify-between">
-              <span className="">Delivery Cost</span>
-              <span className="text-green-500">FREE!</span>
+              <span className="">Delivery For Others</span>
+              <span className="text-green-500">₹{50}</span>
             </div>
             <hr className="my-2" />
             <div className="flex justify-between">
-              <span className="">TOTAL(INCL. VAT)</span>
-              <span className="font-bold">${totalPrice}</span>
+              <span className="">TOTAL(Without Delivery)</span>
+              <span className="font-bold">₹{totalPrice}</span>
             </div>
             <PaymentDetailModal
               name={name}
@@ -185,8 +182,9 @@ const CartPage = () => {
               setPincode={setPincode}
               setPhoneNumber={setPhoneNumber}
               buyNow={buyNow}
-            // buySingleItem={buySingleItem}
-            // setBuySingleItem={setBuySingleItem}
+              setAddressError={setAddressError}
+              addressError= {addressError}
+              setAddressForDeliveryCharges={setAddressForDeliveryCharges}
             />
           </div> : <></>
       }
