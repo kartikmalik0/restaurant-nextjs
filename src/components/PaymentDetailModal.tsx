@@ -22,13 +22,13 @@ const PaymentDetailModal: React.FC<PaymentDetailModalProps> = ({ name, address, 
     let [isOpen, setIsOpen] = useState(false)
 
     const handleAddress = (address:any) => {
-        const addressesToMatch = ['ajitpur', 'nimriwali', "pahladgarh", "rupgarh", "nandgaon", "jharwai"]; // Array of addresses to match
+        const addressesToMatch = ['ajitpur', 'nimriwali', "pahladgarh", "rupgarh", "nandgaon", "jharwai","neemriwali","ajeetpur"]; // Array of addresses to match
         const lowercaseAddress = address.toLowerCase();
     
         // Loop through each address to match
         for (let i = 0; i < addressesToMatch.length; i++) {
             if (lowercaseAddress.includes(addressesToMatch[i])) {
-                if (addressesToMatch[i] === "nimriwali") {
+                if (addressesToMatch[i] === "nimriwali" || addressesToMatch[i] === "neemriwali") {
                     setAddressForDeliveryCharges(true); // Set state to true if the address contains "nimriwali"
                 } else {
                     setAddressForDeliveryCharges(false); // Set state to false for other addresses
