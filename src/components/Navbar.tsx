@@ -4,11 +4,11 @@ import Link from "next/link";
 import CartIcon from "./CartIcon";
 import Image from "next/image";
 import UserLinks from "./UserLinks";
+import Notification from "./Notification";
 
 const Navbar = () => {
   return (
     <div className=" h-12 fixed top-0  right-0 z-50 left-0 bg-fuchsia-50 text-red-500 p-4 flex items-center justify-between border-b-2 border-b-red-500 uppercase md:h-24 lg:px-20 xl:px-40">
-
       {/* LOGO */}
       <div className="text-xl md:font-bold flex-1 ">
         
@@ -18,12 +18,14 @@ const Navbar = () => {
         
       </div>
       {/* LEFT LINKS */}
-      <div className="hidden md:flex gap-4 flex-1">
+      <div className="flex flex-col w-full ">
+      <div className="hidden md:flex gap-4 mt-4 flex-1">
         <Link href="/">Homepage</Link>
         <Link href="/menu">Menu</Link>
         <Link href="/contact-us">Contact</Link>
       </div>
-      
+      <p className=" text-center text-[0.6rem]">Free delivery for orders over ₹500</p>
+      </div>
       {/* MOBILE MENU */}
       <div className="md:hidden">
         <Menu />

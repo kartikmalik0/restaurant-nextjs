@@ -60,7 +60,7 @@ const CartPage = () => {
     var options = {
       key: process.env.NEXT_PUBLIC_RZP_KEY,
       key_secret: process.env.NEXT_PUBLIC_RZP_SECRET ,
-      amount: (totalPrice + (addressForDeliveryCharges ? 20 : 50)) *100,
+      amount: (totalPrice < 500 ? (totalPrice + (addressForDeliveryCharges ? 20 : 50)) *100 : (totalPrice+0) * 100 ),
       currency: "INR",
       order_receipt: 'order_rcptid' + name,
       name: "MS RESTAURANT",

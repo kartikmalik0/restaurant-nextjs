@@ -18,14 +18,17 @@ const Price = ({ product }: { product: ProductType }) => {
 
   useEffect(() => {
     if (product?.options?.length) {
+      const addtionlaPriceWithQuantity = quantity * product?.options[selected]?.additionalPrice
+      const priceWithQuantity = quantity * product?.price
       setTotal(
-        quantity  * +product?.price + product?.options[selected]?.additionalPrice
+       addtionlaPriceWithQuantity + priceWithQuantity
       );
     }
   }, [quantity, selected, product]);
   const handleCart = ()=>{
+    const randomNumber = Math.floor(Math.random() * 1000);
     addToCart({
-      id: product.id,
+      id: product.id+randomNumber,
       title: product?.title,
       img: product.img,
       price: total,
