@@ -96,7 +96,7 @@ const OrdersPage = () => {
         <tbody>
   {
     sortedData.length > 0 ? ( sortedData?.map((item: OrderType, index: any) => (
-        <tr className={`text-sm md:text-base bg-red-50 ${item?.status == "delivered" && "bg-green-50"}`} key={index}>
+        <tr className={`text-sm md:text-base bg-red-50 ${item?.status === "delivered" && "bg-green-100"}`} key={index}>
           {
             session?.user.isAdmin ? 
             <td className="hidden md:block py-6 px-1">{item?.orderInfo[0]?.paymentId}</td>
