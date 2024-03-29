@@ -67,7 +67,7 @@ const OrdersPage = () => {
     }
 });
 
-
+console.log(sortedData)
   return (
     <div className="p-2 lg:px-8 xl:px-8 mt-12 md:mt-24 lg:mt-24 xl:mt26">
       <table className="w-full border-separate border-spacing-3">
@@ -87,7 +87,7 @@ const OrdersPage = () => {
             <th className="">Products</th>
             {
               session?.user.isAdmin ? (
-                <th>Pincode</th>
+                <th>Address</th>
               ) : <></>
             }
             <th>Status</th>
@@ -96,7 +96,7 @@ const OrdersPage = () => {
         <tbody>
   {
     sortedData.length > 0 ? ( sortedData?.map((item: OrderType, index: any) => (
-        <tr className={`text-sm md:text-base bg-red-50 ${item?.status === "delivered" && "bg-green-100"}`} key={index}>
+        <tr className={`text-sm md:text-base  ${item?.status === "delivered" ? "bg-green-100 " : "bg-red-50"}`} key={index}>
           {
             session?.user.isAdmin ? 
             <td className="hidden md:block py-6 px-1">{item?.orderInfo[0]?.paymentId}</td>
@@ -127,7 +127,7 @@ const OrdersPage = () => {
           </td>
           {
             session?.user.isAdmin ? 
-            <td className="py-6 px-1">{item?.orderInfo[0]?.addressInfo?.pincode}</td>
+            <td className="py-6 px-1">{item?.orderInfo[0]?.addressInfo?.address}</td>
             : <></>
           }
           {session?.user.isAdmin ? (
