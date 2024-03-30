@@ -238,7 +238,7 @@ const AddPage = () => {
                 }
               >
                 <span>{opt.title}</span>
-                <span className="text-xs"> (+ ${opt.additionalPrice})</span>
+                <span className="text-xs"> (+ ₹{opt.additionalPrice})</span>
               </div>
             ))}
           </div>
