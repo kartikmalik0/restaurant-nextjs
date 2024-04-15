@@ -71,7 +71,6 @@ const CartPage = () => {
         const paymentId = response.razorpay_payment_id
 
         const orderInfo = [{
-          // userCart: buySingleItem ? [singleCartItem] : userCart,
           addressInfo,
           date: new Date().toLocaleString("en-US", {
             month: "short",
@@ -109,7 +108,6 @@ const CartPage = () => {
               console.error("Checkout Error:", err);
               // Handle fetch error, show error message, etc.
             }
-
           }
         };
         handleCheckout()
