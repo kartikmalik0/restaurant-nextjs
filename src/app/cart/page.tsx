@@ -7,7 +7,7 @@ import { getAuthSession } from "@/utils/auth";
 import { useCartStore } from "@/utils/store";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -24,7 +24,6 @@ const CartPage = () => {
   const { products, totalItems, totalPrice, removeFromCart, loading } = useCartStore();
 
   useEffect(() => {
-   
     useCartStore.persist.rehydrate();
   }, []);
 

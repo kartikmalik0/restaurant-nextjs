@@ -46,9 +46,7 @@ const AddPage = () => {
     return <PageLoader />
   }
 
-  if (status === "unauthenticated" || !session?.user.isAdmin) {
-    router.push("/");
-  }
+ 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value, checked } = e.target as HTMLInputElement;

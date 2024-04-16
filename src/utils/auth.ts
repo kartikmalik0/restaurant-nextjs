@@ -23,12 +23,13 @@ export const authOptions: NextAuthOptions = {
   },
   providers: [
     GoogleProvider({
-      // clientId: process.env.GOOGLE_ID as string,
-      // clientSecret: process.env.GOOGLE_SECRET as string,
       clientId: process.env.GOOGLE_ID!,
       clientSecret: process.env.GOOGLE_SECRET!,
     }),
   ],
+  pages:{
+    signIn:"/login"
+  },
   callbacks: {
     async session({ token, session }) {
       if (token) {
@@ -46,7 +47,6 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
   },
-  debug:true,
 };
 
 export const getAuthSession = () => getServerSession(authOptions);

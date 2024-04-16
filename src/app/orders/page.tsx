@@ -5,17 +5,18 @@ import { OrderType } from "@/types/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { compareAsc, parseISO, } from 'date-fns';
+import { Select, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 
 
 
 const OrdersPage = () => {
   const queryClient = useQueryClient()
   const router = useRouter()
-  const { data: session, status } = useSession()
+  const { data: session, status } = useSession();
   const base_url = process.env.NEXT_PUBLIC_BASE_URL!;
   const [sound, setSound] = useState<any>(null);
   const [previousData, setPreviousData] = useState<OrderType[]>([]);
@@ -31,9 +32,7 @@ const OrdersPage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
-  if (status === "unauthenticated") {
-    router.push("/")
-  }
+ 
 
   const { isPending, error, data } = useQuery({
     queryKey: ['orders'],
@@ -79,7 +78,6 @@ const OrdersPage = () => {
 
         if (newOrders.length > 0) {
           sound.play();
-          console.log('new order created')
         }
       }
       setPreviousData(data || []);
@@ -102,95 +100,97 @@ const OrdersPage = () => {
 
   return (
     <div className="p-2 lg:px-8 xl:px-8 mt-12 md:mt-24 lg:mt-24 xl:mt26">
-      <table className="w-full border-separate border-spacing-3">
-        <thead>
-          <tr className="text-left">
+      <TableContainer>
+        <Table className="w-full border-separate border-spacing-3">
+          <Thead>
+            <Tr className="text-left">
+              {
+                session?.user.isAdmin ? (
+                  <>
+                    <Th className="hidden md:block">Payment ID</Th>
+                    <Th>Name</Th>
+                    <Th>Mobile No.</Th>
+                    <Th>Date</Th>
+                  </>
+                ) : <></>
+              }
+              <Th>Price</Th>
+              <Th className="">Products</Th>
+              {
+                session?.user.isAdmin ? (
+                  <Th>Address</Th>
+                ) : <></>
+              }
+              <Th>Status</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
             {
-              session?.user.isAdmin ? (
-                <>
-                  <th className="hidden md:block">Payment ID</th>
-                  <th>Name</th>
-                  <th>Mobile No.</th>
-                  <th>Date</th>
-                </>
-              ) : <></>
+              sortedData.length > 0 ? (sortedData?.map((item: OrderType, index: any) => (
+                <Tr className={`text-sm md:text-base mb-2 ${item?.status === "Delivered" ? "bg-green-100 " : "bg-red-50"}`} key={index}>
+                  {
+                    session?.user.isAdmin ?
+                      <Td className="hidden md:block ">{item?.orderInfo[0]?.paymentId}</Td>
+                      : <></>
+                  }
+                  {
+                    session?.user.isAdmin ?
+                      <Td >{item?.orderInfo[0]?.addressInfo?.name}</Td>
+                      : <></>
+                  }
+                  {
+                    session?.user.isAdmin ?
+                      <Td >{item?.orderInfo[0]?.addressInfo?.phoneNumber}</Td>
+                      : <></>
+                  }
+                  {
+                    session?.user.isAdmin ? (
+                      <Td >{item?.cretedAt?.toString().slice(0, 10)}</Td>
+                    ) : <></>
+                  }
+                  <Td >₹{item?.price}</Td>
+                  <Td >
+                    {item?.products.map((product: any) => (
+                      <p key={product.id}>
+                        {`${product.title} (${product.optionTitle}) * ${product.quantity}`}
+                      </p>
+                    ))}
+                  </Td>
+                  {
+                    session?.user.isAdmin ?
+                      <Td >{item?.orderInfo[0]?.addressInfo?.address}</Td>
+                      : <></>
+                  }
+                  {session?.user.isAdmin ? (
+                    <Td>
+                      <form
+                        className="flex items-center justify-center gap-4"
+                        onSubmit={(e) => handleUpdate(e, item.id)}
+                      >
+                        <Select defaultValue={item?.status} placeholder="Being Prepared">
+                          <option  value='Out for delivery'>Out For Delivery</option>
+                          <option value='Delivered'>Delivered</option>
+                        </Select>
+                        <button className="text-white bg-red-400 hover:bg-red-500 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2  ">
+                          Edit
+                        </button>
+                      </form>
+                    </Td>
+                  ) : (
+                    <Td >{item.status}</Td>
+                  )}
+                </Tr>
+              ))
+              ) : <>
+                <div className="w-full ">
+                  <h1 className="mx-auto text-2xl text-red-500 font-bold">No Orders</h1>
+                </div>
+              </>
             }
-            <th>Price</th>
-            <th className="">Products</th>
-            {
-              session?.user.isAdmin ? (
-                <th>Address</th>
-              ) : <></>
-            }
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            sortedData.length > 0 ? (sortedData?.map((item: OrderType, index: any) => (
-              <tr className={`text-sm md:text-base  ${item?.status === "delivered" ? "bg-green-100 " : "bg-red-50"}`} key={index}>
-                {
-                  session?.user.isAdmin ?
-                    <td className="hidden md:block py-6 px-1">{item?.orderInfo[0]?.paymentId}</td>
-                    : <></>
-                }
-                {
-                  session?.user.isAdmin ?
-                    <td className="py-6 px-1">{item?.orderInfo[0]?.addressInfo?.name}</td>
-                    : <></>
-                }
-                {
-                  session?.user.isAdmin ?
-                    <td className="py-6 px-1">{item?.orderInfo[0]?.addressInfo?.phoneNumber}</td>
-                    : <></>
-                }
-                {
-                  session?.user.isAdmin ? (
-                    <td className="py-6 px-1">{item?.cretedAt?.toString().slice(0, 10)}</td>
-                  ) : <></>
-                }
-                <td className="py-6 px-1">₹{item?.price}</td>
-                <td className=" py-6 px-1">
-                  {item?.products.map((product: any) => (
-                    <div key={product.id}>
-                      {`${product.title} (${product.optionTitle}) * ${product.quantity}`}
-                    </div>
-                  ))}
-                </td>
-                {
-                  session?.user.isAdmin ?
-                    <td className="py-6 px-1">{item?.orderInfo[0]?.addressInfo?.address}</td>
-                    : <></>
-                }
-                {session?.user.isAdmin ? (
-                  <td>
-                    <form
-                      className="flex items-center justify-center gap-4"
-                      onSubmit={(e) => handleUpdate(e, item.id)}
-                    >
-                      <input
-                        placeholder={item.status}
-                        className="p-2 ring-1 ring-red-100 rounded-md"
-                      />
-                      <button className="bg-red-400 p-2 rounded-full">
-                        <Image src={"/edit.png"} alt="" width={30} height={30} />
-                      </button>
-                    </form>
-                  </td>
-                ) : (
-                  <td className="py-6 px-1">{item.status}</td>
-                )}
-              </tr>
-            ))
-            ) : <>
-              <div className="w-full ">
-                <h1 className="mx-auto text-2xl text-red-500 font-bold">No Orders</h1>
-              </div>
-            </>
-          }
-        </tbody>
+          </Tbody>
 
-      </table>
+        </Table>
+      </TableContainer>
     </div>
   );
 };
