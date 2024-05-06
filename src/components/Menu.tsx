@@ -10,7 +10,7 @@ import React from "react"
 const links = [
   { id: 1, title: "Homepage", url: "/", imageUrl: "/homeicon.png" },
   { id: 2, title: "Menu", url: "/menu", imageUrl: "/menuicon.png" },
-  { id: 4, title: "Contact", url: "/", imageUrl: "/phoneicon.png" },
+  { id: 4, title: "Contact", url: "/contact-us", imageUrl: "/phoneicon.png" },
 ];
 
 
@@ -38,7 +38,7 @@ function Menu() {
         finalFocusRef={btnRef}
       >
         <DrawerOverlay />
-        <DrawerContent height={"67%"} w={"64%"} className=" rounded-bl-2xl">
+        <DrawerContent  className=" rounded-bl-2xl">
           <DrawerCloseButton color={"#fff"} />
           <DrawerHeader background={"#ef4444"} color={"#fff"} className=" underline">MS RESTAURANT</DrawerHeader>
           <DrawerBody background={"#ef4444"} h={50}>

@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   totalItems: 0,
   totalPrice: 0,
   loading:true,
+  pincodeForDelivery:""
 };
 
 export const useCartStore = create(
@@ -16,6 +17,7 @@ export const useCartStore = create(
       totalItems: INITIAL_STATE.totalItems,
       totalPrice: INITIAL_STATE.totalPrice,
       loading:INITIAL_STATE.loading,
+      pincodeForDelivery:INITIAL_STATE.pincodeForDelivery,
       addToCart(item) {
         const products = get().products;
         const productInState = products.find(
@@ -55,6 +57,9 @@ export const useCartStore = create(
           loading:false
         }));
       },
+      setPincodeForDelivery(newPincode:any){
+        set({pincodeForDelivery:newPincode})
+      }
     }),
     { name: "cart", skipHydration: true }
   )

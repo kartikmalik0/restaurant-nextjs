@@ -46,9 +46,7 @@ const AddPage = () => {
     return <PageLoader />
   }
 
-  if (status === "unauthenticated" || !session?.user.isAdmin) {
-    router.push("/");
-  }
+ 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value, checked } = e.target as HTMLInputElement;
@@ -132,7 +130,7 @@ const AddPage = () => {
   };
 
   return (
-    <div className="p-4 lg:px-20 xl:px-40 flex items-center justify-center text-red-500 ">
+    <div className="p-4 mt-24 lg:px-20 xl:px-40 flex items-center justify-center text-red-500 ">
       <form onSubmit={handleSubmit} className="flex flex-wrap gap-6">
         <h1 className="text-4xl mb-2 text-red-500 font-bold">
           Add New Product
@@ -238,7 +236,7 @@ const AddPage = () => {
                 }
               >
                 <span>{opt.title}</span>
-                <span className="text-xs"> (+ ${opt.additionalPrice})</span>
+                <span className="text-xs"> (+ ₹{opt.additionalPrice})</span>
               </div>
             ))}
           </div>
