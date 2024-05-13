@@ -7,7 +7,7 @@ import Link from "next/link";
 import React, { useEffect } from "react";
 
 const CartIcon = () => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
   const { totalItems } = useCartStore();
 

@@ -1,7 +1,9 @@
 "use client"
 import { useCartStore } from '@/utils/store';
 import { Dialog, Transition } from '@headlessui/react'
+import { useQuery } from '@tanstack/react-query';
 import { Fragment, useState } from 'react'
+import { toast } from 'react-toastify';
 
 interface PaymentDetailModalProps {
     name: string;
@@ -20,6 +22,18 @@ interface PaymentDetailModalProps {
 
 const PaymentDetailModal: React.FC<PaymentDetailModalProps> = ({ name, address, pincode, phoneNumber, setName, setAddress,setPincode, setPhoneNumber, buyNow ,setAddressError,addressError,setAddressForDeliveryCharges}) => {
     let [isOpen, setIsOpen] = useState(false)
+
+    const { data , isLoading } = useQuery({
+        queryKey: ['shopstatus'],
+        queryFn: async () => {
+            const res = await fetch("/api/isresopen")
+            return res.json()
+        },
+        staleTime: 0
+    })
+
+
+    // console.log(data[0]?.shopStatus)
 
     const handleAddress = (address:any) => {
         const addressesToMatch = ['ajitpur', 'nimriwali', "pahladgarh", "rupgarh", "nandgaon", "jharwai","neemriwali","ajeetpur"]; // Array of addresses to match
@@ -48,14 +62,21 @@ const PaymentDetailModal: React.FC<PaymentDetailModalProps> = ({ name, address, 
     }
 
     function openModal() {
-        setIsOpen(true)
+        if(data[0]?.shopStatus === "CLOSE"){
+            toast.error(<CustomToastContent />)
+        }
+        else if(data[0]?.shopStatus === "OPEN"){
+            setIsOpen(true)
+        }
     }
-
-    // useEffect(() => {
-    //     if (buySingleItem) {
-    //         openModal();
-    //     }
-    // }, [buySingleItem]);
+    const CustomToastContent = () => (
+        <div>
+          <h3>Shop Closed !</h3>
+          <p>Try again later.</p>
+        </div>
+      );
+    
+    
 
 
     return (
@@ -63,6 +84,7 @@ const PaymentDetailModal: React.FC<PaymentDetailModalProps> = ({ name, address, 
             <div className="text-center rounded-lg text-white font-bold">
                 <button
                     type="button"
+                    // disabled={data[0]?.shopStatus === "CLOSE"}
                     onClick={openModal}
                     className="w-full  bg-violet-600 py-2 text-center rounded-lg text-white font-bold "
                 >
