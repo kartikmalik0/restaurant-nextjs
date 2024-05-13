@@ -32,7 +32,7 @@ const OrdersPage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
- 
+
 
   const { isPending, error, data } = useQuery({
     queryKey: ['orders'],
@@ -168,7 +168,7 @@ const OrdersPage = () => {
                         onSubmit={(e) => handleUpdate(e, item.id)}
                       >
                         <Select defaultValue={item?.status} placeholder="Being Prepared">
-                          <option  value='Out for delivery'>Out For Delivery</option>
+                          <option value='Out for delivery'>Out For Delivery</option>
                           <option value='Delivered'>Delivered</option>
                         </Select>
                         <button className="text-white bg-red-400 hover:bg-red-500 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2  ">
