@@ -9,7 +9,6 @@ import { toast } from "react-toastify";
 const IsResOpen = () => {
     const queryClient = useQueryClient()
     const { data: session } = useSession()
-    console.log(session)
     const mutation = useMutation({
         mutationFn: (shopStatus: string) => {
             return fetch(`/api/isresopen`, {
