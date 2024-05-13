@@ -7,9 +7,10 @@ import { getAuthSession } from "@/utils/auth";
 import { useCartStore } from "@/utils/store";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 const CartPage = () => {
   const base_url = process.env.NEXT_PUBLIC_BASE_URL!;
@@ -117,16 +118,18 @@ const CartPage = () => {
   }
 
   return (
-    <div className="h-[calc(100vh-6rem)]  md:h-[calc(100vh-9rem)] flex flex-col text-red-500 lg:flex-row">
+    <div className="h-[calc(100vh-3rem)]  md:h-[calc(100vh-6rem)] flex flex-col md:items-center text-red-500 lg:flex-row">
       {/* PRODUCTS CONTAINER */}
       {/* Cart Products */}
       {loading ?
         (<LoadingSpinner />) :
         products.length > 0 ?
-          (<div className=" h-64 px-5 mt-12 overflow-scroll lg:h-full lg:w-2/3 2xl:w-1/2 lg:px-20 xl:px-40">
+          (
+            <ScrollArea className=" h-[45%] md:w-full lg:full xl:full md:h-[70%] lg:h-[70%]">
+              <div className="  px-5 lg:h-full xl:w-full lg:w-full md:w-full  lg:px-20 xl:px-40">
             {/* SINGLE ITEM */}
             {products.map((item) => (
-              <div className="flex items-center justify-between mb-4 mt-14" key={item.id}>
+              <div className="flex items-center justify-between mb-4 mt-4" key={item.id}>
                 {item.img && (
                   <Image src={item.img} alt="" width={100} height={100} />
                 )}
@@ -145,13 +148,15 @@ const CartPage = () => {
                 </span>
               </div>
             ))}
-          </div>) :
+          </div>
+            </ScrollArea>
+          ) :
           <EmptyCart />
       }
       {/* PAYMENT CONTAINER */}
       {
         products.length > 0 ?
-          <div className="h-1/2 p-4 bg-fuchsia-50 flex flex-col gap-4 justify-center lg:h-full lg:w-1/3 2xl:w-1/2 lg:px-20 xl:px-40 2xl:text-xl 2xl:gap-6">
+          <div className="h-[69%] p-4 bg-fuchsia-50 flex flex-col gap-4 justify-center md:w-full lg:h-full lg:w-[40%] 2xl:w-[40%] lg:px-20 xl:px-40 2xl:text-xl 2xl:gap-6">
             <div className="flex justify-between">
               <span className="">Subtotal ({totalItems} items)</span>
               <span className="">₹{totalPrice}</span>

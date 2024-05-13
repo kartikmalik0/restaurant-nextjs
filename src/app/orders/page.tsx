@@ -9,7 +9,8 @@ import { redirect, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { compareAsc, parseISO, } from 'date-fns';
-import { Select, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import {  Table, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import { SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue,Select } from "@/components/ui/select";
 
 
 
@@ -59,11 +60,8 @@ const OrdersPage = () => {
     },
   });
 
-  const handleUpdate = (e: React.FormEvent<HTMLFormElement>, id: string) => {
-    e.preventDefault();
-    const form = e.target as HTMLFormElement;
-    const input = form.elements[0] as HTMLInputElement;
-    const status = input.value;
+  const handleUpdate = (e:string,id:string) => {
+    const status = e;
     mutation.mutate({ id, status });
     toast.success("The order status has been changed!")
   };
@@ -163,18 +161,18 @@ const OrdersPage = () => {
                   }
                   {session?.user.isAdmin ? (
                     <Td>
-                      <form
-                        className="flex items-center justify-center gap-4"
-                        onSubmit={(e) => handleUpdate(e, item.id)}
-                      >
-                        <Select defaultValue={item?.status} placeholder="Being Prepared">
-                          <option value='Out for delivery'>Out For Delivery</option>
-                          <option value='Delivered'>Delivered</option>
-                        </Select>
-                        <button className="text-white bg-red-400 hover:bg-red-500 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2  ">
-                          Edit
-                        </button>
-                      </form>
+                        <Select onValueChange={(e) => handleUpdate(e,item.id)} >
+                        <SelectTrigger className="w-[160px]">
+                            <SelectValue placeholder={item?.status} />
+                        </SelectTrigger>
+                        <SelectContent className="z-50">
+                            <SelectGroup>
+                                <SelectLabel></SelectLabel>
+                                <SelectItem value="Out for delivery" className=" cursor-pointer" >Out for delivery</SelectItem>
+                                <SelectItem value="Delivered" className=" cursor-pointer" >Delivered</SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
                     </Td>
                   ) : (
                     <Td >{item.status}</Td>
