@@ -12,6 +12,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { Providers } from "./chakraProvider";
 const inter = Inter({ subsets: ["latin"] });
 import { fonts } from "./fonts";
+import MaxHeightWrapper from "@/components/MaxHeightWrapper";
 
 export const metadata: Metadata = {
   title: {
@@ -37,7 +38,9 @@ export default function RootLayout({
             <Providers>
               {/* <Notification /> */}
               <Navbar />
+              <MaxHeightWrapper>
               {children}
+              </MaxHeightWrapper>
               <Footer />
               <ToastContainer position="bottom-right" theme="dark" autoClose={3000} />
             </Providers>

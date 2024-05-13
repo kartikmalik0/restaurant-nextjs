@@ -5,6 +5,7 @@ import { signOut, useSession } from "next-auth/react";
 import { Button, Card, CardBody, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Icon, Image, Input, Text, useDisclosure } from "@chakra-ui/react"
 import Link from "next/link";
 import React from "react"
+import IsResOpen from "./IsResOpen";
 
 
 const links = [
@@ -41,7 +42,7 @@ function Menu() {
         <DrawerContent  className=" rounded-bl-2xl">
           <DrawerCloseButton color={"#fff"} />
           <DrawerHeader background={"#ef4444"} color={"#fff"} className=" underline">MS RESTAURANT</DrawerHeader>
-          <DrawerBody background={"#ef4444"} h={50}>
+          <DrawerBody background={"#ef4444"}>
             {
               links.map((link, index) => (
                 <Card key={index} my={"0.5rem"} onClick={onClose} >
@@ -113,6 +114,8 @@ function Menu() {
                 )}
               </CardBody>
             </Card>
+
+            <IsResOpen/>
 
           </DrawerBody>
         </DrawerContent>

@@ -1,7 +1,6 @@
 "use client"
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select"
-import { useEffect } from "react"
 import { useSession } from "next-auth/react"
 import { toast } from "react-toastify";
 
@@ -46,11 +45,11 @@ const IsResOpen = () => {
                         <SelectTrigger className="w-[100px]">
                             <SelectValue placeholder={isLoading ? "Loading..." : data[0]?.shopStatus} />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="z-50">
                             <SelectGroup>
                                 <SelectLabel></SelectLabel>
-                                <SelectItem value="open">Open</SelectItem>
-                                <SelectItem value="close">Close</SelectItem>
+                                <SelectItem value="open" className=" cursor-pointer" >OPEN</SelectItem>
+                                <SelectItem value="close" className=" cursor-pointer" >CLOSE</SelectItem>
                             </SelectGroup>
                         </SelectContent>
                     </Select>

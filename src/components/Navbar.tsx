@@ -4,7 +4,6 @@ import Link from "next/link";
 import CartIcon from "./CartIcon";
 import Image from "next/image";
 import UserLinks from "./UserLinks";
-import Notification from "./Notification";
 import IsResOpen from "./IsResOpen";
 
 const Navbar = () => {
