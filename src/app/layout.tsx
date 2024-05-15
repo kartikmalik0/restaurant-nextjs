@@ -13,6 +13,8 @@ import { Providers } from "./chakraProvider";
 const inter = Inter({ subsets: ["latin"] });
 import { fonts } from "./fonts";
 import MaxHeightWrapper from "@/components/MaxHeightWrapper";
+import NextTopLoader from 'nextjs-toploader';
+
 
 export const metadata: Metadata = {
   title: {
@@ -39,6 +41,8 @@ export default function RootLayout({
               {/* <Notification /> */}
               <Navbar />
               <MaxHeightWrapper>
+              <NextTopLoader color="#ef4444" showSpinner={false}/>
+
               {children}
               </MaxHeightWrapper>
               <Footer />

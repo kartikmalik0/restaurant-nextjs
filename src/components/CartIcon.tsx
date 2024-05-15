@@ -8,33 +8,31 @@ import React, { useEffect } from "react";
 
 const CartIcon = () => {
   const { data: session } = useSession();
-
+  
   const { totalItems } = useCartStore();
 
   useEffect(() => {
     useCartStore.persist.rehydrate();
   }, []);
-
-  useEffect(() => {
-    useCartStore.persist.rehydrate()
-  }, [])
   return (
-    <Link href={session?.user.isAdmin ? "/add" : "/cart"}>
-      <div className="flex items-center gap-4">
+    
+      <div className="flex item-center">
         {
-          !session?.user.isAdmin ? <div className="relative   md:w-8 md:h-12">
+          !session?.user.isAdmin && 
+          <div className="relative flex h-4 w-4 md:w-8 md:h-12">
             <Image
               src="/carticon.png"
-              alt=""
+              alt="carticon"
               fill
               sizes="100%"
               className="object-contain"
             />
-          </div> : <Button colorScheme="red">Add product</Button>
+            {totalItems > 0 && <span className=" absolute bg-[#fff] top-[-0.1rem] right-[-1.1rem] px-2 rounded-full">{totalItems >= 9 ? "9+" : totalItems}</span>}
+          </div> 
         }
 
       </div>
-    </Link>
+    
   );
 };
 
