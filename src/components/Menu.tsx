@@ -48,7 +48,7 @@ function Menu() {
                 <Card key={index} my={"0.5rem"} onClick={onClose} >
                   <CardBody padding={"0.5rem"}>
                     <Link href={link.url} className="flex items-center ">
-                      <Image src={link.imageUrl} alt="" h={"20px"} />
+                      <Image src={link.imageUrl} alt="menu" h={"20px"} />
                       <Text className="ml-4">{link.title}</Text>
                     </Link>
                   </CardBody>
@@ -60,7 +60,7 @@ function Menu() {
                 <Card my={"0.5rem"} onClick={onClose}>
               <CardBody padding={"0.5rem"}>
                   <Link href="/cart" className="flex items-center  ">
-                    <Image src="/carticon.png" alt="" h={"20px"} />
+                    <Image src="/carticon.png" alt="cartIcon" h={"20px"} />
                     <Text className="ml-4">Cart</Text>
                   </Link>
               </CardBody>
@@ -74,7 +74,7 @@ function Menu() {
                 <Card my={"0.5rem"} onClick={onClose} >
               <CardBody padding={"0.5rem"}>
                   <Link href="/orders" className=" flex items-center" >
-                    <Image src="/ordericon.png" alt="" h={"20px"} />
+                    <Image src="/ordericon.png" alt="orders" h={"20px"} />
                     <Text className="ml-4">Orders</Text>
                   </Link>
               </CardBody>
@@ -88,7 +88,7 @@ function Menu() {
                 <Card my={"0.5rem"} onClick={onClose} >
               <CardBody padding={"0.5rem"}>
                   <Link href="/add" className=" flex items-center" >
-                    <Image src="/addproducticon.png" alt="" h={"20px"} />
+                    <Image src="/addproducticon.png" alt="add product" h={"20px"} />
                     <Text className="ml-4">Add Product</Text>
                   </Link>
               </CardBody>
@@ -102,12 +102,12 @@ function Menu() {
               <CardBody padding={"0.5rem"}>
                 {status == "authenticated" ? (
                   <Link href="/" className=" flex items-center" onClick={() => signOut()} >
-                    <Image src="/logouticon.png" alt="" h={"20px"} />
+                    <Image src="/logouticon.png" alt="logout" h={"20px"} />
                     <Text className="ml-4">Logout</Text>
                   </Link>
                 ) : (
                   <Link href="/login" className="flex items-center" >
-                    <Image src="/loginicon.png" alt="" h={"20px"} />
+                    <Image src="/loginicon.png" alt="login" h={"20px"} />
                     <Text className="ml-4">Login</Text>
                   </Link>
 

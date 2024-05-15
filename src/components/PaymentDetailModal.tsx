@@ -33,7 +33,7 @@ const PaymentDetailModal: React.FC<PaymentDetailModalProps> = ({ name, address, 
     })
 
 
-    // console.log(data[0]?.shopStatus)
+    
 
     const handleAddress = (address:any) => {
         const addressesToMatch = ['ajitpur', 'nimriwali', "pahladgarh", "rupgarh", "nandgaon", "jharwai","neemriwali","ajeetpur"]; // Array of addresses to match
