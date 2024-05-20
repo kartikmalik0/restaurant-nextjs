@@ -18,12 +18,11 @@ const links = [
 function Menu() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef(null)
-  const { status,data:session } = useSession()
+  const { status, data: session } = useSession()
 
 
   return (
     <>
-
       <Image
         src={"/open.png"}
         alt=""
@@ -37,9 +36,10 @@ function Menu() {
         placement='right'
         onClose={onClose}
         finalFocusRef={btnRef}
+
       >
         <DrawerOverlay />
-        <DrawerContent  className=" rounded-bl-2xl">
+        <DrawerContent className=" rounded-bl-2xl ">
           <DrawerCloseButton color={"#fff"} />
           <DrawerHeader background={"#ef4444"} color={"#fff"} className=" underline">MS RESTAURANT</DrawerHeader>
           <DrawerBody background={"#ef4444"}>
@@ -58,13 +58,13 @@ function Menu() {
             {
               status === "authenticated" ? (
                 <Card my={"0.5rem"} onClick={onClose}>
-              <CardBody padding={"0.5rem"}>
-                  <Link href="/cart" className="flex items-center  ">
-                    <Image src="/carticon.png" alt="cartIcon" h={"20px"} />
-                    <Text className="ml-4">Cart</Text>
-                  </Link>
-              </CardBody>
-            </Card>
+                  <CardBody padding={"0.5rem"}>
+                    <Link href="/cart" className="flex items-center  ">
+                      <Image src="/carticon.png" alt="cartIcon" h={"20px"} />
+                      <Text className="ml-4">Cart</Text>
+                    </Link>
+                  </CardBody>
+                </Card>
               ) : (
                 <></>
               )
@@ -72,13 +72,13 @@ function Menu() {
             {
               status === "authenticated" ? (
                 <Card my={"0.5rem"} onClick={onClose} >
-              <CardBody padding={"0.5rem"}>
-                  <Link href="/orders" className=" flex items-center" >
-                    <Image src="/ordericon.png" alt="orders" h={"20px"} />
-                    <Text className="ml-4">Orders</Text>
-                  </Link>
-              </CardBody>
-            </Card>
+                  <CardBody padding={"0.5rem"}>
+                    <Link href="/orders" className=" flex items-center" >
+                      <Image src="/ordericon.png" alt="orders" h={"20px"} />
+                      <Text className="ml-4">Orders</Text>
+                    </Link>
+                  </CardBody>
+                </Card>
               ) : (
                 <></>
               )
@@ -86,13 +86,13 @@ function Menu() {
             {
               session?.user.isAdmin ? (
                 <Card my={"0.5rem"} onClick={onClose} >
-              <CardBody padding={"0.5rem"}>
-                  <Link href="/add" className=" flex items-center" >
-                    <Image src="/addproducticon.png" alt="add product" h={"20px"} />
-                    <Text className="ml-4">Add Product</Text>
-                  </Link>
-              </CardBody>
-            </Card>
+                  <CardBody padding={"0.5rem"}>
+                    <Link href="/add" className=" flex items-center" >
+                      <Image src="/addproducticon.png" alt="add product" h={"20px"} />
+                      <Text className="ml-4">Add Product</Text>
+                    </Link>
+                  </CardBody>
+                </Card>
               ) : (
                 <></>
               )
@@ -114,12 +114,12 @@ function Menu() {
                 )}
               </CardBody>
             </Card>
-
-            <IsResOpen/>
-
+            <IsResOpen />
           </DrawerBody>
         </DrawerContent>
+
       </Drawer>
+
     </>
   )
 }

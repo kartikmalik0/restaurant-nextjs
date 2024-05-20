@@ -37,17 +37,15 @@ const IsResOpen = () => {
 
 
     return (
-
-        <>
+        <div>
             {
                 session?.user.isAdmin ?
-                    <Select onValueChange={(shopStatus) => handleChange(shopStatus)} >
-                        <SelectTrigger className="w-[100px]">
+                    <Select onValueChange={(shopStatus) => handleChange(shopStatus)}  >
+                        <SelectTrigger className=" min-w-28 w-full  z-[1500]">
                             <SelectValue placeholder={isLoading ? "Loading..." : data[0]?.shopStatus} />
                         </SelectTrigger>
-                        <SelectContent className="z-50">
-                            <SelectGroup>
-                                <SelectLabel></SelectLabel>
+                        <SelectContent className=" z-[1500]">
+                            <SelectGroup >
                                 <SelectItem value="open" className=" cursor-pointer" >OPEN</SelectItem>
                                 <SelectItem value="close" className=" cursor-pointer" >CLOSE</SelectItem>
                             </SelectGroup>
@@ -55,7 +53,7 @@ const IsResOpen = () => {
                     </Select>
                     : <></>
             }
-        </>
+        </div>
     )
 }
 
