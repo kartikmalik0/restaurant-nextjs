@@ -30,6 +30,8 @@ const SingleProductPage = async ({ params }: { params: { id: string } }) => {
             alt=""
             className="object-contain"
             fill
+            priority
+            quality={50}
           />
         </div>
       )}
