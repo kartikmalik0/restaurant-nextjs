@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import CountDown from "./CountDown";
+import OfferImage from "../../public/offerProduct.png"
 
 const Offer = () => {
   return (
@@ -17,7 +18,14 @@ const Offer = () => {
       </div>
       {/* IMAGE CONTAINER */}
       <div className="flex-1 w-full relative md:h-full">
-        <Image src="/offerProduct.png" alt="" fill className="object-contain" />
+        <Image
+         src={OfferImage}
+         alt="OfferProduct Image" 
+         fill 
+         className="object-contain" 
+         placeholder="blur"
+         />
+         
       </div>
     </div>
   );
