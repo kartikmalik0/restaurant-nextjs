@@ -9,17 +9,7 @@ import { Loader, Loader2 } from "lucide-react";
 import PageLoader from "@/components/PageLoader";
 import NoProducts from "@/components/NoProducts";
 
-interface Product {
-  id: string;
-  createdAt: Date;
-  title: string;
-  desc: string;
-  img: string | null;
-  price: number;
-  isFeatured: boolean;
-  options: any[]; // You may want to define a more specific type for options
-  catSlug: string;
-}
+
 const fetchProducts = async ({ pageParam = 0, category }: { pageParam?: number, category: string }) => {
   const base_url = process.env.NEXT_PUBLIC_BASE_URL!;
   const res = await fetch(`${base_url}/api/products?cat=${category}&skip=${pageParam}&take=4`, {
@@ -33,24 +23,7 @@ const fetchProducts = async ({ pageParam = 0, category }: { pageParam?: number, 
   return res.json();
 };
 
-// export const useProducts = (category: string) => {
-//   return useInfiniteQuery(
-//     {
-//       queryKey: ["products", category],
-//       queryFn: ({ pageParam = 0 }) => fetchProducts({ pageParam, category }),
-//       initialPageParam: 0,
-//       getNextPageParam: (lastPage, allPages) => {
-//         if (lastPage.length < 4) {
-//           return undefined
-//         }
-//         return allPages.length + 4
-//       }
-//     }
-//   ) as UseInfiniteQueryResult<Product[] , Error>;
-// };
-type Props = {
-  params: { category: string }
-}
+
 
 const CategoryPage = ({ params }: { params: { category: string } }) => {
   const { category } = params;
