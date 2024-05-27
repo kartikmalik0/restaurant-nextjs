@@ -1,7 +1,6 @@
 "use client";
 
 import PageLoader from "@/components/PageLoader";
-import { Switch } from "@headlessui/react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -39,6 +38,7 @@ const AddPage = () => {
 
   const [options, setOptions] = useState<Option[]>([]);
   const [file, setFile] = useState<File>();
+  const [submitting, setSubmitting] = useState<Boolean>(false)
 
   const router = useRouter();
 
@@ -46,7 +46,7 @@ const AddPage = () => {
     return <PageLoader />
   }
 
- 
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value, checked } = e.target as HTMLInputElement;
@@ -107,9 +107,8 @@ const AddPage = () => {
 
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-
     e.preventDefault();
-
+    setSubmitting(true)
     try {
       const url = await upload();
       const res = await fetch(`${base_url}/api/products`, {
@@ -122,10 +121,13 @@ const AddPage = () => {
       });
 
       const data = await res.json();
-
+      setSubmitting(false)
       router.push(`/product/${data.id}`);
     } catch (err) {
       console.log(err);
+      setSubmitting(false)
+    } finally {
+      setSubmitting(false)
     }
   };
 
@@ -243,9 +245,10 @@ const AddPage = () => {
         </div>
         <button
           type="submit"
-          className="bg-red-500 p-4 text-white w-48 rounded-md relative h-14 flex items-center justify-center"
+          disabled={!!submitting}
+          className={`bg-red-500 p-4 disabled:bg-red-300  text-white w-48 rounded-md relative h-14 flex items-center justify-center`}
         >
-          Submit
+          {submitting ? "Submitting..." : "Submit"}
         </button>
       </form>
     </div>

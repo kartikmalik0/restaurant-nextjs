@@ -55,20 +55,16 @@ function Menu() {
                 </Card>
               ))
             }
-            {
-              status === "authenticated" ? (
-                <Card my={"0.5rem"} onClick={onClose}>
-                  <CardBody padding={"0.5rem"}>
-                    <Link href="/cart" className="flex items-center  ">
-                      <Image src="/carticon.png" alt="cartIcon" h={"20px"} />
-                      <Text className="ml-4">Cart</Text>
-                    </Link>
-                  </CardBody>
-                </Card>
-              ) : (
-                <></>
-              )
-            }
+
+            <Card my={"0.5rem"} onClick={onClose}>
+              <CardBody padding={"0.5rem"}>
+                <Link href="/cart" className="flex items-center  ">
+                  <Image src="/carticon.png" alt="cartIcon" h={"20px"} />
+                  <Text className="ml-4">Cart</Text>
+                </Link>
+              </CardBody>
+            </Card>
+
             {
               status === "authenticated" ? (
                 <Card my={"0.5rem"} onClick={onClose} >
